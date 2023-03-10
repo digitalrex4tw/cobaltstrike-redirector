@@ -49,7 +49,7 @@ else
     DOMAINS=( $(echo $1 | tr ',' ' ') )
     for DOMAIN in "${DOMAINS[@]}"
     do
-     ./certbot certonly --standalone -d $DOMAIN --agree-tos --register-unsafely-without-email --non-interactive --expand
+    certbot certonly --standalone -d $DOMAIN --agree-tos --register-unsafely-without-email --non-interactive --expand
     done
    fi
 

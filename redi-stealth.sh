@@ -6,7 +6,7 @@ echo [+] updating
 apt-get update
 
 echo [+] installing nginx
-apt-get --assume-yes install nginx
+apt-get --assume-yes install nginx snap
 
 echo [+] starting configuration
 service nginx stop
@@ -18,8 +18,7 @@ DOMAINS=( $(echo $1 | tr ',' ' ') )
 REGEX=$(echo $(cat $4 | grep uri | cut -d '"' -f2) | sed 's/\//\\\\\\\//g' | sed 's/\ /\|/g')
 
 echo [+] downloading certbot to generate certificates
-wget https://dl.eff.org/certbot-auto
-chmod a+x certbot-auto
+snap install certbot --classic
 echo [+] generating certifcates
 mv /etc/letsencrypt/ /etc/letsencrypt_bak_${now}/
 DOMAINS=( $(echo $1 | tr ',' ' ') )

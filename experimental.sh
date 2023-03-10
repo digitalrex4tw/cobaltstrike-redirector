@@ -4,7 +4,7 @@ echo [+] updating
 apt-get update
 
 echo [+] installing nginx
-apt-get --assume-yes install nginx
+apt-get --assume-yes install nginx snap
 
 echo [+] starting configuration
 service nginx stop
@@ -19,8 +19,7 @@ then
  echo [+] https is selected
  CONFIGFILE="redirector-ssl.conf"
  echo [+] downloading certbot to generate certificates
- wget https://dl.eff.org/certbot-auto
- chmod a+x certbot-auto
+ snap install certbot --classic
  echo [+] generating certifcates
  DOMAINS=( $(echo $1 | tr ',' ' ') )
  DOMAINS_FOR_CERT=( $(echo $1 | sed 's/,/ -d /g') )

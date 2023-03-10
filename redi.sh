@@ -26,8 +26,8 @@ else
   #for http/https redirectors
   if [ "$3" = "https" ] || [ "$3" = "http" ]
   then
-   echo [+] installing nginx
-   apt-get --assume-yes install nginx
+   echo [+] installing nginx and snap
+   apt-get --assume-yes install nginx snap
 
    echo [+] starting configuration
    service nginx stop
@@ -43,14 +43,13 @@ else
     echo [+] https is selected
     CONFIGFILE="redirector-ssl.conf"
     echo [+] downloading certbot to generate certificates
-    wget https://dl.eff.org/certbot-auto
-    chmod a+x certbot-auto
+    snap install certbot --classic
     echo [+] generating certifcates
     mv /etc/letsencrypt/ /etc/letsencrypt_bak_${now}/
     DOMAINS=( $(echo $1 | tr ',' ' ') )
     for DOMAIN in "${DOMAINS[@]}"
     do
-     ./certbot-auto certonly --standalone -d $DOMAIN --agree-tos --register-unsafely-without-email --non-interactive --expand
+     ./certbot certonly --standalone -d $DOMAIN --agree-tos --register-unsafely-without-email --non-interactive --expand
     done
    fi
 
